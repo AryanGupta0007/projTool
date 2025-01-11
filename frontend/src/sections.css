@@ -1,0 +1,20 @@
+.dashboard {
+    width: 100vw;
+    height: 100vh;
+}
+
+.metrics{
+    height: 50vh;
+    width: 83vw;
+    position: absolute;
+    top: 38vh;
+    left: 20vw;
+}
+
+.overview {
+    height: 20vh;
+    width: 83vw;
+    position: absolute;
+    top: 14vh;
+    left: 16.3vw;
+}

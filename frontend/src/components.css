@@ -1,0 +1,13 @@
+.metric-table{
+    border-radius: 10px;
+    height: 100%;
+    width: 40vw;
+    background-color: white;
+}
+.metric-chart{
+    margin-left: 5vw;
+    border-radius: 10px;
+    height: 100%;
+    width: 30vw;
+    background-color: white;
+}

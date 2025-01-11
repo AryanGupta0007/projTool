@@ -1,20 +1,22 @@
 .dashboard {
-    width: 100vw;
-    height: 100vh;
+    width: 80vw;
+    height: 80vh;
 }
 
 .metrics{
     height: 50vh;
     width: 83vw;
-    position: absolute;
-    top: 38vh;
-    left: 20vw;
 }
 
 .overview {
     height: 20vh;
     width: 83vw;
+}
+.content{
+    background-color:white;
+    width: 80vw;
+    height: 85vh;
     position: absolute;
-    top: 14vh;
-    left: 16.3vw;
+    left: 20vw;
+    top: 12vh;
 }

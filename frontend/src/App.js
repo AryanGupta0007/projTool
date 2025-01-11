@@ -5,8 +5,7 @@ import './components.css'
 import './sections.css'
 import './utils.css'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import {Dashboard} from './sections/Dashboard.js'
-import {Projects} from './sections/Projects.js'
+import {Content} from './sections/Content.js'
 function App() {
     const customBlue = "#121e31"
     return (
@@ -15,14 +14,24 @@ function App() {
                 <Sidebar/>
                 <Navbar bg={customBlue}/>
                 <Routes>
+                    <Route path={"/login"} element={
+                        <>
+                            <Content load={"login"} />
+                        </>
+                    }></Route>
+                    <Route path={"/signup"} element={
+                        <>
+                            <Content load={"signup"} />
+                        </>
+                    }></Route>
                     <Route path={"/org/dashboard"} element={
                         <>
-                            <Dashboard />
+                            <Content load={"org-dashboard"} />
                         </>
                     }/>
                     <Route path={"/org/projects"} element={
                         <>
-                            <Projects />
+                            <Content load={"org-projects"} />
                         </>
                     }/>
                 </Routes>

@@ -4,6 +4,7 @@
 }
 
 .metrics{
+    margin-top: 5vh;
     height: 50vh;
     width: 83vw;
 }
@@ -13,10 +14,21 @@
     width: 83vw;
 }
 .content{
-    background-color:white;
+    background-color: #f6f7f9;
     width: 80vw;
-    height: 85vh;
+    height: 80vh;
     position: absolute;
     left: 20vw;
-    top: 12vh;
+    top: 15vh;
+}
+
+.custom-table{
+    margin-left: 5vw;
+    margin-top: 3vh;
+    margin-right: 5vw;
+}
+.custom-table-row{
+    margin-left: 5vw;
+    margin-top: 3vh;
+    margin-right: 5vw;
 }

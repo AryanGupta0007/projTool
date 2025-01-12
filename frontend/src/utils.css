@@ -38,3 +38,9 @@
     font-style: normal;
 }
 
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}

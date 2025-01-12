@@ -1,23 +1,56 @@
+import {useLocation} from "react-router-dom";
+import {useEffect} from "react";
+
 export const Navbar = (props) => {
     const {bg, logo} = props
+    const location = useLocation()
+    const hideOrShow = () => {
+        switch (location.pathname) {
+            case "/login/" :
+                return "hide"
+            case "/login" :
+                return "hide"
+            case "/signup/":
+                return "hide"
+            case "/signup":
+                return "hide"
+            case "/profile/professional":
+                return "hide"
+            case "/profile/professional/":
+                return "hide"
+            case "/profile/organisation/":
+                return "hide"
+            case "/profile/organisation":
+                return "hide"
+            default:
+                return "show"
+
+        }
+
+    }
+    useEffect(()=>{
+        console.log(location.pathname)
+    }, [location])
     return (
         <>
-            <div style={{
-                backgroundColor: "grey",
-                width: "80vw",
-                position: "relative",
-                top: "-1vw",
-                left: "20vw",
-                height: "12vh"
+            <div className={hideOrShow()} style={{
+                // marginRight: "10vw",
+                width: "60vw",
+                position: "sticky",
+                top: "1vw",
+                left: "30vw",
+                height: "11vh"
             }}>
-                <header className='flex shadow-md sm:px-10 px-6 py-3 bg-white font-[sans-serif] ' style={{backgroundColor: "#545dab"}}>
+                <header className='flex shadow-md sm:px-10 px-6 py-3 bg-white font-[sans-serif] '
+                        style={{backgroundColor: "#fffefe"}}>
+
                     <div className="flex w-full max-w-screen-xl mx-auto">
                         <div
                             className='flex flex-wrap items-center justify-between relative lg:gap-y-4 gap-y-4 gap-x-4 w-full'>
                             <div className="flex items-center poppins-regular">
-                               <h1 style={{fontSize: "32px", color: "white"}}>PlanSync</h1>
+                                <h1 style={{fontSize: "32px", color: "black"}}>PlanSync</h1>
                             </div>
-                
+
                             <div
                                 className="bg-gray-100 flex items-center border max-md:order-1 border-transparent  px-4 rounded-sm h-10 min-w-[40%] lg:w-2/4 max-md:w-full transition-all">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904"
@@ -29,7 +62,7 @@ export const Navbar = (props) => {
                                 <input type='email' placeholder='Search...'
                                        className="w-full outline-none bg-transparent text-black text-sm"/>
                             </div>
-                
+
                             <div className='flex items-center space-x-4 max-md:ml-auto'>
                                 <button type="button"
                                         className="border-none outline-none flex items-center justify-center rounded-full p-2 bg-gray-100 transition-all">
@@ -63,7 +96,7 @@ export const Navbar = (props) => {
                                 </button>
                             </div>
                         </div>
-                
+
                         <div id="collapseMenu"
                              className='hidden before:fixed before:bg-black before:opacity-40 before:inset-0 max-lg:before:z-50'>
                             <button id="toggleClose"
@@ -78,7 +111,7 @@ export const Navbar = (props) => {
                                         data-original="#000000"></path>
                                 </svg>
                             </button>
-                
+
                             <ul
                                 className='block space-x-4 space-y-3 fixed bg-white w-1/2 min-w-[300px] top-0 left-0 p-4 h-full shadow-md overflow-auto z-50'>
                                 <li className='pb-4 px-3'>
@@ -114,8 +147,6 @@ export const Navbar = (props) => {
                         </div>
                     </div>
                 </header>
-                <div style={{backgroundColor: "white",position: "absolute", left: "0.05vw",  width: "90vw", border: "2px solid white" }}></div>
-
             </div>
         </>
     )

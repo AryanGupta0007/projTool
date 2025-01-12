@@ -1,17 +1,28 @@
+.input{
+    width: 20vw;
+    margin-left : 5vw;
+}
+.label{
+    margin-left: 15vw;
+    font-size: 30px;
+}
 .metric-table{
     margin-left: 2vw;
-    border-radius: 10px;
     height: 100%;
     width: 40vw;
     background-color: white;
 }
 .metric-chart{
     margin-left: 5vw;
-    border-radius: 10px;
     height: 100%;
     width: 30vw;
     background-color: white;
 }
-.projects-table{
-
+.pro-profile-form{
+    margin-right: 5vw;
+    margin-left: 5vw;
+    margin-top: 2vh;
 }
+/*.table-row{*/
+/*    width: 80%;*/
+/*}*/

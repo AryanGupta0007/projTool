@@ -24,14 +24,29 @@ function App() {
                             <Content load={"signup"} />
                         </>
                     }></Route>
-                    <Route path={"/org/dashboard"} element={
+                    <Route path={"/dashboard"} element={
                         <>
                             <Content load={"org-dashboard"} />
                         </>
                     }/>
-                    <Route path={"/org/projects"} element={
+                    <Route path={"/projects"} element={
                         <>
                             <Content load={"org-projects"} />
+                        </>
+                    }/>
+                    <Route path={"/tasks"} element={
+                        <>
+                            <Content load={"org-tasks"} />
+                        </>
+                    }/>
+                    <Route path={"/profile/professional"} element={
+                        <>
+                            <Content load={"profile-professional"} />
+                        </>
+                    }/>
+                    <Route path={"/profile/organisation"} element={
+                        <>
+                            <Content load={"profile-organisation"} />
                         </>
                     }/>
                 </Routes>

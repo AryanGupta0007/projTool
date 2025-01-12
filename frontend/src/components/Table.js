@@ -1,5 +1,5 @@
 import React, {useEffect, useContext} from "react";
-import {TableRow} from "./TableRow.js";
+import {TaskTableRow} from "./TaskTableRow.js";
 
 export const Table = () => {
 
@@ -26,7 +26,7 @@ export const Table = () => {
             </tr>
             </thead>
             <tbody>
-            <TableRow/>
+            <TaskTableRow/>
 
             </tbody>
         </table>

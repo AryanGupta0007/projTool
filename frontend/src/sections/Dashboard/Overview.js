@@ -9,7 +9,6 @@ export const Overview = () => {
                 <Card title={"Projects"} desc={"20"}/>
                 <Card title={"Projects"} desc={"20"}/>
             </div>
-            position: "absolute",
         </>
     )
 }

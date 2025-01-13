@@ -1,9 +1,12 @@
-import {ProjectCard} from '../components/ProjectCard.js'
+import {useContext} from 'react'
 import {TableRow} from '../components/ProjTableRow.js'
+import {AddProjectButton} from '../components/AddProjectButton.js'
+import {AuthContext} from '../contexts/AuthContext.js'
 export const ProjectsTable = () => {
     return (
         <>
             <div className={"projects-table custom-table"}>
+                <AddProjectButton />
                 <div className="font-[sans-serif] overflow-x-auto">
                     <table className="min-w-full bg-white">
                         <thead className="whitespace-nowrap">

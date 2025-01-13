@@ -1,10 +1,20 @@
+import {useContext, useEffect} from 'react'
+import {FormContext} from '../../contexts/FormContexts.js'
 export const OrganisationProfileForm = (props) => {
+    const {profileFormState, updateProfileFormState} = useContext(FormContext)
+    const userEmail = sessionStorage.getItem('userEmail')
+    const onChange = ((e) => {
+        const {name, value} = e.target
+        console.log("onChange profile form  ", name, value)
+        updateProfileFormState(name, value)
+    })
+    useEffect(()=>{
+        console.log("updatedPRofile", profileFormState)
+    }, [profileFormState])
     return (
         <>
-
             <div className={"pro-profile-form"}
                  style={{position: "relative", bottom: "12vh"}}>
-
                 <div className="space-y-12">
                     <div className="border-b border-gray-900/10 pb-12">
                         <h2 className="text-base/7 font-semibold text-gray-900">Profile</h2>
@@ -13,28 +23,13 @@ export const OrganisationProfileForm = (props) => {
 
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="col-span-full">
-                                <label htmlFor="cover-photo" className="block text-sm/6 font-medium text-gray-900">
-                                    Company Logo</label>
-                                <div
-                                    className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                                    <div className="text-center">
-                                        <svg className="mx-auto size-12 text-gray-300" viewBox="0 0 24 24"
-                                             fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path fillRule="evenodd"
-                                                  d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
-                                                  clipRule="evenodd"/>
-                                        </svg>
-                                        <div className="mt-4 flex text-sm/6 text-gray-600">
-                                            <label htmlFor="file-upload"
-                                                   className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                                <span>Upload a file</span>
-                                                <input id="file-upload" name="file-upload" type="file"
-                                                       className="sr-only"/>
-                                            </label>
-                                            <p className="pl-1">or drag and drop</p>
-                                        </div>
-                                        <p className="text-xs/5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-                                    </div>
+
+                                <div className="mt-2">
+                                    <label htmlFor="org-name" className="block text-sm/6 font-medium text-gray-900">Organisation
+                                        logo URL</label>
+                                    <input type="text" name="org-logo" id="org-name" onChange={onChange}
+                                           autoComplete="org-name" value={profileFormState["org-logo"]} required
+                                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +41,7 @@ export const OrganisationProfileForm = (props) => {
                                 <label htmlFor="full-name" className="block text-sm/6 font-medium text-gray-900">Organisation
                                     name</label>
                                 <div className="mt-2">
-                                    <input type="text" name="full-name" id="full-name" autoComplete="given-name"
+                                    <input type="text" name="org-name" id="full-name" onChange={onChange} autoComplete="given-name" value={profileFormState["org-name"]} required
                                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                                 </div>
                             </div>
@@ -54,9 +49,13 @@ export const OrganisationProfileForm = (props) => {
                                 <label htmlFor="industry"
                                        className="block text-sm/6 font-medium text-gray-900">Industry</label>
                                 <div className="mt-2 grid grid-cols-1">
-                                    <select id="industry" name="industry" autoComplete="industry-name"
+                                    <select id="industry" name="org-industry" autoComplete="industry-name" onChange={onChange} value={profileFormState["org-industry"]} required
                                             className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                                        {<option>{props.industry}</option>}
+                                        <option>Textile</option>
+                                        <option>Student</option>
+                                        <option>Software</option>
+                                        <option>Food</option>
+                                        <option>Manufacturing</option>
 
                                     </select>
                                     <svg
@@ -74,7 +73,7 @@ export const OrganisationProfileForm = (props) => {
                                 <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">Email
                                     address</label>
                                 <div className="mt-2">
-                                    <input id="email" name="email" type="email" autoComplete="email"
+                                    <input id="email" name="org-email" type="email" onChange={onChange} autoComplete="email" value={userEmail} disabled
                                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                                 </div>
                             </div>
@@ -83,7 +82,7 @@ export const OrganisationProfileForm = (props) => {
                                 <label htmlFor="about"
                                        className="block text-sm/6 font-medium text-gray-900">About</label>
                                 <div className="mt-2">
-                                    <textarea name="about" id="about" rows="3"
+                                    <textarea name="org-about" id="about" rows="3" onChange={onChange} value={profileFormState["org-about"]} required
                                               className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
                                 </div>
                                 <p className="mt-3 text-sm/6 text-gray-600">Write a few sentences about your
@@ -93,29 +92,42 @@ export const OrganisationProfileForm = (props) => {
                                 <label htmlFor="street-address"
                                        className="block text-sm/6 font-medium text-gray-900">Your address</label>
                                 <div className="mt-2">
-                                    <input type="text" name="street-address" id="street-address"
-                                           autoComplete="street-address"
+                                    <input type="text" name="org-address" id="street-address" onChange={onChange} value={profileFormState["org-address"]}
+                                           autoComplete="street-address" required
                                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                                </div>
+                            </div>
+                            <div className="sm:col-span-3">
+                                <label htmlFor="country"
+                                       className="block text-sm/6 font-medium text-gray-900">Country</label>
+                                <div className="mt-2 grid grid-cols-1">
+                                    <select id="industry" name="org-country" autoComplete="industry-name" onChange={onChange} value={profileFormState["org-country"]} required
+                                            className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                                        {<option>INDIA</option>}
+                                        {<option>USA</option>}
+                                        {<option>CANADA</option>}
+                                        {<option>UAE</option>}
+
+                                    </select>
+                                    <svg
+                                        className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                        viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                        <path fillRule="evenodd"
+                                              d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                              clipRule="evenodd"/>
+                                    </svg>
                                 </div>
                             </div>
 
-                            <div className="sm:col-span-2">
-                                <label htmlFor="region" className="block text-sm/6 font-medium text-gray-900">State /
-                                    Province</label>
-                                <div className="mt-2">
-                                    <input type="text" name="region" id="region" autoComplete="address-level1"
-                                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
-                                </div>
-                            </div>
 
                             <div className="sm:col-span-2">
                                 <label htmlFor="phone-number" className="block text-sm/6 font-medium text-gray-900">Phone
                                     number</label>
                                 <div className="mt-2">
-                                    <input type="text" name="phone-number" id="phone-number"
-                                           autoComplete="phone-number"
+                                    <input type="text" name="org-number" id="phone-number"
+                                           autoComplete="phone-number" onChange={onChange} value={profileFormState["org-number"]} required
                                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                                           required={true}/>
+                                           required/>
                                 </div>
                             </div>
                             <div className="sm:col-span-2">
@@ -123,7 +135,7 @@ export const OrganisationProfileForm = (props) => {
                                     Postal
                                     code</label>
                                 <div className="mt-2">
-                                    <input type="text" name="postal-code" id="postal-code" autoComplete="postal-code"
+                                    <input type="text" name="org-pincode" onChange={onChange} id="postal-code" required autoComplete="postal-code" value={profileFormState["org-pincode"]}
                                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                                 </div>
                             </div>
@@ -132,13 +144,13 @@ export const OrganisationProfileForm = (props) => {
                 </div>
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
-                    <button type="button" className="text-sm/6 font-semibold text-gray-900">Cancel</button>
                     <button type="submit"
-                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save
+                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Save
                     </button>
                 </div>
 
             </div>
         </>
-)
+    )
 }

@@ -1,34 +1,48 @@
-import {useLocation} from "react-router-dom";
+import {useLocation, matchPath} from "react-router-dom";
 import {useEffect} from "react";
 
 export const Navbar = (props) => {
     const {bg, logo} = props
     const location = useLocation()
     const hideOrShow = () => {
-        switch (location.pathname) {
-            case "/login/" :
-                return "hide"
-            case "/login" :
-                return "hide"
-            case "/signup/":
-                return "hide"
-            case "/signup":
-                return "hide"
-            case "/profile/professional":
-                return "hide"
-            case "/profile/professional/":
-                return "hide"
-            case "/profile/organisation/":
-                return "hide"
-            case "/profile/organisation":
-                return "hide"
-            default:
-                return "show"
+        const hidePaths = [
+            "/login/",
+            "/login",
+            "/signup/",
+            "/signup",
+            "/professional/profile",
+            "/professional/profile/",
+            "/organisation/project/create/",
+            "/organisation/project/create",
+            "/organisation/task/create/",
+            "/organisation/task/create",
+            "/professional/task/create/",
+            "/professional/task/create",
+            "/organisation/profile/",
+            "/organisation/profile",
+            "/organisation/:profileID/profile/"
+        ];
 
+        const showPaths = [
+            "/organisation/dashboard/",
+            "/organisation/dashboard",
+            "/organisation/projects/",
+            "/organisation/projects"
+        ]
+        if (matchPath("/organisation/:profileID/profile/", location.pathname)) {
+            return "hide";
+        }
+        else if (hidePaths.includes(location.pathname)) {
+            return "hide";
+        }
+        else if (showPaths.includes(location.pathname)) {
+            return "show";
         }
 
-    }
-    useEffect(()=>{
+        return "show"; // Default case
+    };
+
+    useEffect(() => {
         console.log(location.pathname)
     }, [location])
     return (

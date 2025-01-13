@@ -1,0 +1,49 @@
+Database architecture:
+1) User
+2) OrganisationDetails
+3) ProfessionalDetails
+4) OrganisationMembers
+5) Projects
+6) Tasks
+
+1. Add Auth
+login signup
+
+2. Add Organisation Views
+dashboard
+add project -> assign pm -> add task -> assign task
+invite employee
+track employee
+track project
+
+3. Add Project Manager Views
+dashboard
+add task -> assign task
+track project
+
+4. Add Team member views
+chat
+all tasks for current project
+assigned tasks
+track progress
+
+5. in the metric table add the filter
+-urgent tasks or projects
+-tasks
+-projects
+
+profile form
+profile view
+
+detailed project view -> 3 tabs: discussion(Chat) OverView Tasks
+
+
+Remaining Job
+1) create contexts for forms
+2) api calls to get all projects and tasks
+add task and project view page
+complete the dashboard page
+3) Add component to show response messages from the server
+4) request or send invite to user to join a organisation
+5) chat functionality
+

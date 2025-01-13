@@ -1,4 +1,26 @@
+import {useContext, useEffect} from 'react'
+import {FormContext} from '../../contexts/FormContexts.js'
+
 export const ProfessionalProfileForm = (props) => {
+    const {profileFormState, addOrganisationProfile, updateProfileFormState, getUserProfile} = useContext(FormContext)
+    const sessionData = JSON.parse(sessionStorage.getItem('session'))
+    const userID = sessionStorage.getItem('userID')
+    const role = sessionData.role
+    const onSubmit = ((e) => {
+        e.preventDefault()
+        addOrganisationProfile(sessionData.authToken)
+    })
+    const onChange = ((e) => {
+        const {name, value} = e.target
+        console.log("onChange profile form  ", name, value)
+        updateProfileFormState(name, value)
+    })
+    useEffect(() => {
+        getUserProfile(role, userID)
+    })
+    useEffect(() => {
+        console.log("updated profile pro ", profileFormState)
+    }, [profileFormState])
     return (
         <>
 
@@ -11,30 +33,16 @@ export const ProfessionalProfileForm = (props) => {
                         <p className="mt-1 text-sm/6 text-gray-600">This information will be displayed publicly so
                             be careful what you share.</p>
 
+
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="col-span-full">
-                                <label htmlFor="cover-photo" className="block text-sm/6 font-medium text-gray-900">
-                                    Profile photo</label>
-                                <div
-                                    className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                                    <div className="text-center">
-                                        <svg className="mx-auto size-12 text-gray-300" viewBox="0 0 24 24"
-                                             fill="currentColor" aria-hidden="true" data-slot="icon">
-                                            <path fillRule="evenodd"
-                                                  d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
-                                                  clipRule="evenodd"/>
-                                        </svg>
-                                        <div className="mt-4 flex text-sm/6 text-gray-600">
-                                            <label htmlFor="file-upload"
-                                                   className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                                <span>Upload a file</span>
-                                                <input id="file-upload" name="file-upload" type="file"
-                                                       className="sr-only"/>
-                                            </label>
-                                            <p className="pl-1">or drag and drop</p>
-                                        </div>
-                                        <p className="text-xs/5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-                                    </div>
+
+                                <div className="mt-2">
+                                    <label htmlFor="full-name" className="block text-sm/6 font-medium text-gray-900">Professional
+                                        logo URL</label>
+                                    <input type="text" name="pro-logo" id="street-address" autoComplete="street-address"
+                                           onChange={onChange} value={profileFormState["pro-logo"] || ""}
+                                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +54,8 @@ export const ProfessionalProfileForm = (props) => {
                                 <label htmlFor="full-name" className="block text-sm/6 font-medium text-gray-900">Full
                                     name</label>
                                 <div className="mt-2">
-                                    <input type="text" name="full-name" id="full-name" autoComplete="given-name"
+                                    <input type="text" onChange={onChange} value={profileFormState["pro-name"] || ""}
+                                           name="pro-name" id="full-name" autoComplete="given-name" required
                                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                                 </div>
                             </div>
@@ -56,7 +65,8 @@ export const ProfessionalProfileForm = (props) => {
                                 <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">Email
                                     address</label>
                                 <div className="mt-2">
-                                    <input id="email" name="email" type="email" autoComplete="email"
+                                    <input id="email" name="pro-email" type="email" onChange={onChange}
+                                           value={profileFormState["pro-email"] || ""} autoComplete="email"
                                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                                 </div>
                             </div>
@@ -65,7 +75,8 @@ export const ProfessionalProfileForm = (props) => {
                                 <label htmlFor="country"
                                        className="block text-sm/6 font-medium text-gray-900">Country</label>
                                 <div className="mt-2 grid grid-cols-1">
-                                    <select id="country" name="country" autoComplete="country-name"
+                                    <select id="country" name="pro-country" autoComplete="country-name"
+                                            onChange={onChange} value={profileFormState["pro-country"] || ""}
                                             className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                                         <option>United States</option>
                                         <option>Canada</option>
@@ -85,8 +96,9 @@ export const ProfessionalProfileForm = (props) => {
                                 <label htmlFor="street-address"
                                        className="block text-sm/6 font-medium text-gray-900">Your address</label>
                                 <div className="mt-2">
-                                    <input type="text" name="street-address" id="street-address"
-                                           autoComplete="street-address"
+                                    <input type="text" name="pro-address" id="street-address"
+                                           autoComplete="street-address" onChange={onChange}
+                                           value={profileFormState["pro-address"] || ""}
                                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                                 </div>
                             </div>
@@ -95,17 +107,21 @@ export const ProfessionalProfileForm = (props) => {
                                 <label htmlFor="city"
                                        className="block text-sm/6 font-medium text-gray-900">Role</label>
                                 <div className="mt-2">
-                                    <input type="text" name="role" id="role" autoComplete="address-level2"
+                                    <input type="text" name="pro-role" id="role" autoComplete="address-level2"
+                                           onChange={onChange} value={profileFormState["pro-role"] || ""}
                                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                                 </div>
                             </div>
 
                             <div className="sm:col-span-2">
-                                <label htmlFor="postal-code" className="block text-sm/6 font-medium text-gray-900">Phone number</label>
+                                <label htmlFor="postal-code" className="block text-sm/6 font-medium text-gray-900">Phone
+                                    number</label>
                                 <div className="mt-2">
-                                    <input type="text" name="phone-number" id="phone-number"
-                                           autoComplete="phone-number"
-                                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" required={true}/>
+                                    <input type="text" name="pro-number" id="phone-number"
+                                           autoComplete="phone-number" onChange={onChange}
+                                           value={profileFormState["pro-number"] || ""}
+                                           className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                           required={true}/>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +129,6 @@ export const ProfessionalProfileForm = (props) => {
                 </div>
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
-                    <button type="button" className="text-sm/6 font-semibold text-gray-900">Cancel</button>
                     <button type="submit"
                             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save
                     </button>

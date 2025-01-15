@@ -76,7 +76,7 @@ router.post('/login/', [
     //     maxAge: rememberMe? 7*24*3600*1000 : 3600*1000
     // })
     return res.status(200).json({
-        "msg": "Login success", "token": authToken, "user": userExists
+        "msg": "Login success", "authToken": authToken, "user": userExists
     })
 })
 

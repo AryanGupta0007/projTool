@@ -1,6 +1,7 @@
 import {useEffect, useContext} from 'react'
 import {Login} from '../components/Login.js'
 import {Signup} from '../components/Signup.js'
+import {OurTeam} from '../components/OurTeam.js'
 import {Dashboard} from './Dashboard.js'
 import {ProjectsTable} from './ProjectsTable.js'
 import {TasksTable} from './TasksTable.js'
@@ -23,10 +24,14 @@ export const Content = (props) => {
                 return <Signup/>
             case "org-dashboard":
                 return <Dashboard/>
+            case "pro-dashboard":
+                return <Dashboard/>
             case "org-projects":
                 return <ProjectsTable/>
-            case "org-tasks":
+            case "project-tasks":
                 return <TasksTable/>
+            case "our-team":
+                return <OurTeam/>
             case "profile-professional":
                 return <ProfessionalProfileForm/>
             case "profile-organisation":

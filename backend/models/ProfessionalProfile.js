@@ -3,11 +3,17 @@ const {Schema} = mongoose
 const ProfessionalProfileSchema = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        unique: true,
+        required: true
     },
     profilePic : {
       type: "String",
       required: true
+    },
+    desc: {
+        type: "String",
+        required: true
     },
     name: {
         type: "String",

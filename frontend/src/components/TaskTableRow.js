@@ -1,13 +1,21 @@
-import React from "react";
+import React, {useEffect, useContext} from "react";
+import {GetContext} from '../contexts/GetContext.js'
+export const TaskTableRow = (props) => {
+    const {e} = props
 
-export const TaskTableRow = () => {
   return (
       <tr className="custom-table-row hover:bg-gray-50">
           <td className="text-gray-800 text-center p-4 text-sm">
-              Opening Meeting
+              {e.name}
           </td>
           <td className="text-gray-800 text-center p-4 text-sm">
-              Joe
+              {e.assignee || "None"}
+          </td>
+          <td className="text-gray-800 text-center p-4 text-sm">
+              {e.start}
+          </td>
+          <td className="text-gray-800 text-center p-4 text-sm">
+              {e.due}
           </td>
           <td className="text-center p-4 text-xs">
               <div className="mx-auto px-3 py-1 bg-red-500 w-max text-white rounded">High</div>

@@ -39,11 +39,12 @@ detailed project view -> 3 tabs: discussion(Chat) OverView Tasks
 
 
 Remaining Job
-1) create contexts for forms
-2) api calls to get all projects and tasks
+1) create contexts for forms DONE
+2) api calls to get all projects and tasks DONE
+fix all the links in jsx
+create edit api for profile project and task
 add task and project view page
 complete the dashboard page
 3) Add component to show response messages from the server
 4) request or send invite to user to join a organisation
-5) chat functionality
-
+clear form state after submission

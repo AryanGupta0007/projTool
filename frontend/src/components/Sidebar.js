@@ -1,28 +1,101 @@
 import {useEffect, useContext, useState} from 'react'
 import {Link, useLocation} from 'react-router-dom'
 import {AuthContext} from '../contexts/AuthContext.js'
+import {GetContext} from '../contexts/GetContext.js'
 import {FormContext} from '../contexts/FormContexts.js'
+
 export const Sidebar = () => {
+    const {navigate} = useContext(AuthContext)
     const {profileFormState, getUserProfile} = useContext(FormContext)
+    const {
+        getProfessionals,
+        getProjects,
+        getOrganisations,
+        getMembers,
+        professionals,
+        members,
+        tasks,
+        projects,
+        organisations
+    } = useContext(GetContext)
     const sessionData = JSON.parse(sessionStorage.getItem('session'))
     const userID = sessionStorage.getItem('userID')
     const email = sessionStorage.getItem('userEmail')
     let role, authToken, id
     useEffect(() => {
-        console.log(profileFormState)
+        console.log("profilekrdiupdate", profileFormState)
     }, [profileFormState])
 
-    if (userID!==null && sessionData!==null) {
+    if (userID !== null && sessionData !== null) {
         console.log("jhwerw", sessionData, userID)
-         role = sessionData.role
-         authToken = sessionData.authToken
-         id = userID
+        role = sessionData.role
+        authToken = sessionData.authToken
+        id = userID
     }
 
-    useEffect(() => {
-        getUserProfile(role, userID, authToken)
-    }, [])
     const location = useLocation()
+    useEffect(() => {
+        console.log("pros", professionals)
+    }, [professionals])
+    useEffect(() => {
+        console.log("projects", projects)
+    }, [projects])
+    useEffect(() => {
+        console.log("members", members)
+    }, [members])
+    useEffect(() => {
+        console.log("tasks", tasks)
+    }, [tasks])
+    useEffect(() => {
+        console.log("orgs ", organisations)
+    }, [organisations])
+    useEffect(() => {
+        console.log(location.pathname)
+        if (location.pathname !== "/login/" && location.pathname !== "/login" && location.pathname !== "/signup/" && location.pathname !== "/signup" && location.pathname !== "/") {
+            try {
+                getUserProfile(sessionData.role, userID, sessionData.authToken)
+                getProfessionals(sessionData.authToken)
+                let orgID
+                if (role === "organisation" || role==="Organisation") {
+                    orgID = profileFormState["org-id"]
+                } else if (role === "professional" || role==="Professional" ) {
+                    orgID = profileFormState["pro-organisation"]
+                }
+                console.log("calling from here members ",orgID)
+                getMembers(sessionData.authToken, orgID)
+
+                getProjects(sessionData.authToken, orgID)
+                getOrganisations(sessionData.authToken)
+            }
+            catch(error){
+                navigate('/login')
+            }
+
+        }
+    }, [location.pathname])
+    useEffect(() => {
+        console.log(location.pathname)
+        if (location.pathname !== "/login/" && location.pathname !== "/login" && location.pathname !== "/signup/" && location.pathname !== "/signup" && location.pathname !== "/") {
+            try {
+                getUserProfile(sessionData.role, userID, sessionData.authToken)
+                getProfessionals(sessionData.authToken)
+                let orgID
+                if (role === "organisation") {
+                    orgID = profileFormState["org-id"]
+                    console.log("rogID", orgID)
+                } else if (role === "professional") {
+                    orgID = profileFormState["pro-organisation"]
+                }
+                getMembers(sessionData.authToken, orgID)
+                getProjects(sessionData.authToken, orgID)
+                getOrganisations(sessionData.authToken)
+            }
+            catch(error){
+                navigate('/login')
+            }
+
+        }
+    }, [])
     const hideOrShow = () => {
         switch (location.pathname) {
             case "/login/" :
@@ -36,9 +109,10 @@ export const Sidebar = () => {
             default:
                 return "show"
 
-        }}
+        }
+    }
 
-    if (sessionData!==null) {
+    if (sessionData !== null) {
         return (
             <>
                 <div className={hideOrShow()} style={{
@@ -53,7 +127,7 @@ export const Sidebar = () => {
                         style={{backgroundColor: "white"}}>
                         <div className="flex flex-wrap items-center gap-4 cursor-pointer">
                             <img
-                                src={profileFormState["org-logo"]} alt={"Logo"}
+                                src={profileFormState["org-logo"] || profileFormState["pro-logo"]} alt={"https://www.google.com/imgres?q=user&imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F9%2F99%2FSample_User_Icon.png&imgrefurl=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3ASample_User_Icon.png&docid=wEzPstpTgQ5VoM&tbnid=SBUlgl2FWFFpQM&vet=12ahUKEwic0oSCk_eKAxV8z6ACHbeHLjsQM3oECH8QAA..i&w=512&h=512&hcb=2&ved=2ahUKEwic0oSCk_eKAxV8z6ACHbeHLjsQM3oECH8QAA"}
                                 className="w-10 h-10 rounded-full border-2 border-white"/>
                             <div>
                                 <p className="txt-sm text-black">{profileFormState["org-name"]}</p>
@@ -65,7 +139,7 @@ export const Sidebar = () => {
 
                         <ul className="space-y-3">
                             <li>
-                                <Link to={`${role}/dashboard`}
+                                <Link to={`${role}/dashboard/`}
                                       className="text-black text-sm flex items-center hover:bg-white-700 rounded px-4 py-3 transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                          className="w-[18px] h-[18px] mr-4"
@@ -133,7 +207,7 @@ export const Sidebar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to={`organisation/${id}/profile`}
+                                <Link to={`${role}/${id}/profile`}
                                       className="text-black text-sm flex items-center hover:bg-white-700 rounded px-4 py-3 transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                          className="w-[18px] h-[18px] mr-4"

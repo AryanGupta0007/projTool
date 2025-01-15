@@ -5,7 +5,7 @@ export const Dashboard = () => {
         <div className={"dashboard"} style={{
         }}>
             <Overview />
-            <Metrics />
+            {/*<Metrics />*/}
         </div>
     )
 }

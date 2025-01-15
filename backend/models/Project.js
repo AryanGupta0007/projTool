@@ -23,12 +23,9 @@ const ProjectSchema = new Schema({
     },
     manager: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "ProfessionalProfile"
+        ref: "ProfessionalProfile",
+        required: false
     },
-    team: [{
-     type: mongoose.Schema.Types.ObjectId,
-     ref: "ProfessionalProfile"
-    }],
     createdOn: {
         type: Date,
         default: Date.now

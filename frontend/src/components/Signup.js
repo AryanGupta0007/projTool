@@ -113,7 +113,7 @@ export const Signup = () => {
                             </div>
 
                             <div className="flex items-center">
-                                <input id="remember-me" name="remember-me" type="checkbox"
+                                <input id="remember-me" name="remember-me" type="checkbox" required
                                        className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"/>
                                 <label htmlFor="remember-me" className="ml-3 block text-sm text-gray-800">
                                     I accept the <a href="javascript:void(0);"

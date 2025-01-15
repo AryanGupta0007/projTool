@@ -32,7 +32,7 @@ export const AuthState = (props) => {
         console.log("finalResponse ", finalResponse)
         const authToken = finalResponse.authToken
         const user = finalResponse.user
-        navigate('/signup')
+        // navigate('/signup')
         let {role} = registerState
         console.log("post register ", authToken, role)
         if (authToken !== null){
@@ -57,11 +57,11 @@ export const AuthState = (props) => {
         })
         const finalResponse = await response.json()
         const {authToken, user} = finalResponse
-        navigate('/login/')
-        const {role} = user
+        // navigate('/login/')
+        let {role} = user
         if (authToken !== null){
-            const sessionData = {"authToken": authToken, "role": role}
             const userData = {user}
+            const sessionData = ({"authToken": authToken, "role": role.toLowerCase(), "user": user})
             setUserDetails(sessionData)
             sessionStorage.setItem('session', JSON.stringify(sessionData));
             sessionStorage.setItem('userID', user._id);

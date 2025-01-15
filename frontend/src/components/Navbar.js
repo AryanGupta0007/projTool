@@ -20,7 +20,9 @@ export const Navbar = (props) => {
             "/professional/task/create",
             "/organisation/profile/",
             "/organisation/profile",
-            "/organisation/:profileID/profile/"
+            "/organisation/:profileID/profile/",
+            "/organisation/team",
+            "/organisation/team/"
         ];
 
         const showPaths = [
@@ -29,7 +31,10 @@ export const Navbar = (props) => {
             "/organisation/projects/",
             "/organisation/projects"
         ]
-        if (matchPath("/organisation/:profileID/profile/", location.pathname)) {
+        if (matchPath("/:role/:profileID/profile/", location.pathname)) {
+            return "hide";
+        }
+        else if (matchPath("/:projectID/tasks/create/", location.pathname)) {
             return "hide";
         }
         else if (hidePaths.includes(location.pathname)) {

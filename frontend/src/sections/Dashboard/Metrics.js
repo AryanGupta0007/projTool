@@ -4,11 +4,11 @@ export const Metrics = () => {
     return (
         <>
 
-            <div className="metrics flex">
-                <MetricTable />
-                <MetricChart />
+            {/*<div className="metrics flex">*/}
+            {/*    <MetricTable />*/}
+            {/*    <MetricChart />*/}
 
-            </div>
+            {/*</div>*/}
         </>
     )
 }

@@ -10,8 +10,10 @@ import {TaskForm} from '../components/Form/TaskForm.js'
 import {ProfessionalProfileForm} from '../components/Form/ProfessionalProfileForm.js'
 import {OrganisationProfileForm} from '../components/Form/OrganisationProfileForm.js'
 import {AuthContext} from '../contexts/AuthContext.js'
+import {FormContext} from '../contexts/AuthContext.js'
 export const Content = (props) => {
     const {userDetails} = useContext(AuthContext)
+
     useEffect(()=>{
         console.log("userDetails ", userDetails)
     }, [userDetails])

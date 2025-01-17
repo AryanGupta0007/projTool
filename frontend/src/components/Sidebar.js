@@ -18,7 +18,7 @@ export const Sidebar = () => {
         projects,
         organisations
     } = useContext(GetContext)
-    const sessionData = JSON.parse(sessionStorage.getItem('session'))
+    let sessionData = JSON.parse(sessionStorage.getItem('session'))
     const userID = sessionStorage.getItem('userID')
     const email = sessionStorage.getItem('userEmail')
     let role, authToken, id
@@ -53,6 +53,12 @@ export const Sidebar = () => {
         console.log(location.pathname)
         if (location.pathname !== "/login/" && location.pathname !== "/login" && location.pathname !== "/signup/" && location.pathname !== "/signup" && location.pathname !== "/") {
             try {
+
+                while(sessionData.authToken === undefined){
+                    console.log("getting session")
+                    sessionData = JSON.parse(sessionStorage.getItem('session'))
+                    console.log(sessionData)
+                }
                 getUserProfile(sessionData.role, userID, sessionData.authToken)
                 getProfessionals(sessionData.authToken)
                 let orgID
@@ -130,7 +136,7 @@ export const Sidebar = () => {
                                 src={profileFormState["org-logo"] || profileFormState["pro-logo"]} alt={"https://www.google.com/imgres?q=user&imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F9%2F99%2FSample_User_Icon.png&imgrefurl=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3ASample_User_Icon.png&docid=wEzPstpTgQ5VoM&tbnid=SBUlgl2FWFFpQM&vet=12ahUKEwic0oSCk_eKAxV8z6ACHbeHLjsQM3oECH8QAA..i&w=512&h=512&hcb=2&ved=2ahUKEwic0oSCk_eKAxV8z6ACHbeHLjsQM3oECH8QAA"}
                                 className="w-10 h-10 rounded-full border-2 border-white"/>
                             <div>
-                                <p className="txt-sm text-black">{profileFormState["org-name"]}</p>
+                                <p className="txt-sm text-black">{profileFormState["org-name"] || profileFormState["pro-name"]}</p>
                                 <p className="text-xs text-black-300 mt-0.5">{email}</p>
                             </div>
                         </div>
@@ -139,7 +145,7 @@ export const Sidebar = () => {
 
                         <ul className="space-y-3">
                             <li>
-                                <Link to={`${role}/dashboard/`}
+                                <Link to={`/${role}/dashboard/`}
                                       className="text-black text-sm flex items-center hover:bg-white-700 rounded px-4 py-3 transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                          className="w-[18px] h-[18px] mr-4"
@@ -152,7 +158,7 @@ export const Sidebar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to={`organisation/team`}
+                                <Link to={`/organisation/team/`}
                                       className="text-black text-sm flex items-center hover:bg-white-700 rounded px-4 py-3 transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                          className="w-[18px] h-[18px] mr-4"
@@ -171,7 +177,7 @@ export const Sidebar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to={`organisation/projects`}
+                                <Link to={`/organisation/projects/`}
                                       className="text-black text-sm flex items-center hover:bg-white-700 rounded px-4 py-3 transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                          className="w-[18px] h-[18px] mr-4"
@@ -184,7 +190,7 @@ export const Sidebar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to={`/discussion`}
+                                <Link to={`/discussion/`}
                                       className="text-black text-sm flex items-center hover:bg-white-700 rounded px-4 py-3 transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke='currentColor'
                                          className="w-[18px] h-[18px] mr-4"
@@ -207,7 +213,7 @@ export const Sidebar = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to={`${role}/${id}/profile`}
+                                <Link to={`/${role}/${id}/profile/`}
                                       className="text-black text-sm flex items-center hover:bg-white-700 rounded px-4 py-3 transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                          className="w-[18px] h-[18px] mr-4"

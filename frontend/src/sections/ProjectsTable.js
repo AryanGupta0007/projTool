@@ -29,8 +29,16 @@ export const ProjectsTable = () => {
 
                         <tbody className="whitespace-nowrap">
                         {projects.map((e, index) => {
-                            console.log(e)
-                            return <TableRow name={e.name} id={e._id} key={index} manager={e.manager} />
+                            console.log(index, e)
+                            let manager
+                            console.log(`i ${index}`, projects[index])
+                            if (projects[index].manager === undefined){
+                                manager = "None"
+                            }
+                            else{
+                                manager = e.manager
+                            }
+                            return <TableRow name={e.name} id={e._id} key={index} manager={manager} />
                         })}
                        </tbody>
                     </table>

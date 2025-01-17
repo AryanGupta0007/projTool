@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import './App.css'
 import './components.css'
 import './sections.css'
@@ -18,80 +18,88 @@ function App() {
         <div className="App">
             <Router>
                 <AuthState>
-                    <FormState>
-                        <GetState>
+                    <GetState>
+                        <FormState>
+
                             <Sidebar/>
                             <Navbar bg={customBlue}/>
                             <Routes>
-                                <Route path={"/login"} element={
+                                {/*<Route path={"/signup"} element={<Navigate to="/signup/" replace />}/>*/}
+                                {/*<Route path={"/login"} element={<Navigate to="/login/" replace />}/>*/}
+                                {/*<Route path={"/signup"} element={<Navigate to="/signup/" replace />}/>*/}
+                                {/*<Route path={"/login"} element={<Navigate to="/login/" replace />}/>*/}
+                                {/*<Route path={"/signup"} element={<Navigate to="/signup/" replace />}/>*/}
+                                {/*<Route path={"/login"} element={<Navigate to="/login/" replace />}/>*/}
+                                <Route path={"/login/"} element={
                                     <>
                                         <Login/>
                                     </>
                                 }></Route>
-                                <Route path={"/signup"} element={
+                                <Route path={"/signup/"} element={
                                     <>
                                         <Signup/>
                                     </>
                                 }></Route>
-                                <Route path={"organisation/dashboard"} element={
+                                <Route path={"/organisation/dashboard/"} element={
                                     <>
                                         <Content load={"org-dashboard"}/>
                                     </>
                                 }/>
-                                <Route path={"professional/dashboard"} element={
+                                <Route path={"/professional/dashboard/"} element={
                                     <>
                                         <Content load={"pro-dashboard"}/>
                                     </>
                                 }/>
-                                <Route path={"organisation/projects"} element={
+                                <Route path={"/organisation/projects/"} element={
                                     <>
                                         <Content load={"org-projects"}/>
                                     </>
                                 }/>
-                                <Route path={":projectID/tasks"} element={
+                                <Route path={"/:projectID/tasks/"} element={
                                     <>
                                         <Content load={"project-tasks"}/>
                                     </>
                                 }/>
-                                <Route path={"professional/profile/"} element={
+                                <Route path={"/professional/profile/"} element={
                                     <>
                                         <Content load={"profile-professional"}/>
                                     </>
                                 }/>
-                                <Route path={"organisation/profile/"} element={
+                                <Route path={"/organisation/profile/"} element={
                                     <>
                                         <Content load={"profile-organisation"}/>
                                     </>
                                 }/>
-                                <Route path={"organisation/project/create"} element={
+                                <Route path={"/organisation/project/create/"} element={
                                     <>
                                         <Content load={"project-form"}/>
                                     </>
                                 }/>
-                                <Route path={"organisation/:profileID/profile/"} element={
+                                <Route path={"/organisation/:profileID/profile/"} element={
                                     <>
                                         <Content load={"profile-organisation"}/>
                                     </>
                                 }/>
-                                <Route path={"organisation/team/"} element={
+                                <Route path={"/organisation/team/"} element={
                                     <>
                                         <Content load={"our-team"}/>
                                     </>
                                 }/>
-                                <Route path={"professional/:profileID/profile/"} element={
+                                <Route path={"/professional/:profileID/profile/"} element={
                                     <>
                                         <Content load={"profile-professional"}/>
                                     </>
                                 }/>
 
-                                <Route path={":projectID/tasks/create"} element={
+                                <Route path={"/:projectID/tasks/create/"} element={
                                     <>
                                         <Content load={"task-form"}/>
                                     </>
                                 }/>
                             </Routes>
-                        </GetState>
-                    </FormState>
+
+                        </FormState>
+                    </GetState>
                 </AuthState>
             </Router>
         </div>

@@ -1,10 +1,11 @@
 import {createContext, useState, useContext} from 'react'
 import {useNavigate} from 'react-router'
 import {AuthContext} from './AuthContext.js'
-
+import {GetContext} from './GetContext.js'
 export const FormContext = createContext()
 export const FormState = (props) => {
     const navigate = useNavigate()
+    const {getMembers} = useContext(GetContext)
     const {userDetails} = useContext(AuthContext)
     const host = "http://127.0.0.1:3010/"
     const [formState, setFormState] = useState({})
@@ -15,6 +16,10 @@ export const FormState = (props) => {
         const currentFormState = {...formState}
         currentFormState[name] = value
         setFormState(currentFormState)
+    }
+    const clearForm = () => {
+        const newState = {}
+        setFormState(newState)
     }
     const updateProfileFormState = (name, value) => {
         const currentFormState = {...profileFormState}
@@ -107,6 +112,7 @@ export const FormState = (props) => {
         })
         const finalResponse = await response.json()
         console.log("post adding profile ", finalResponse)
+        navigate('/organisation/dashboard/')
     }
 
     const addProfessionalProfile = async (authToken) => {
@@ -134,6 +140,7 @@ export const FormState = (props) => {
             body: JSON.stringify(body)
         })
         const finalResponse = await response.json()
+        navigate('/professional/dashboard/')
         console.log("post adding profile ", finalResponse)
     }
     const addProject = async (authToken) => {
@@ -156,7 +163,8 @@ export const FormState = (props) => {
             }
         )
         const finalResponse = await response.json()
-        navigate('/organisation/projects')
+        clearForm()
+        navigate('/organisation/projects/')
         console.log("fsfs", finalResponse)
     }
     const addTask = async (authToken, projectID) => {
@@ -180,7 +188,8 @@ export const FormState = (props) => {
             }
         )
         const finalResponse = await response.json()
-        navigate('/organisation/projects')
+        clearForm()
+        navigate(`/${projectID}/tasks/`)
         console.log("fsfs", finalResponse)
     }
     const addMember = async (authToken, orgID) => {
@@ -199,6 +208,8 @@ export const FormState = (props) => {
             }
         )
         const finalResponse = await response.json()
+        getMembers(authToken, orgID)
+        clearForm()
         console.log("After adding new member ", finalResponse)
     }
     return <FormContext.Provider value={{
